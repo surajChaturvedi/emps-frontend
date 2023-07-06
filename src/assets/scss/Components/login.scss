@@ -1,0 +1,25 @@
+.login-section {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .login-Box {
+        box-shadow: 0px 0px 30px lightgrey inset;
+        height: 30rem;
+        width: 30rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        .heading {
+            margin: 0;
+        }
+    }
+}
+
+.input-Box {
+    width: 80%;
+}
