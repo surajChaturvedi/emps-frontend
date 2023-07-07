@@ -43,7 +43,7 @@ export function checkPasswordRequired(passwordValue: string, setErrorState: Reac
     }
 }
 export function passwordValidate(passwordValue: string, setErrorState: React.Dispatch<React.SetStateAction<errorStateType>>) {
-    if (!(passwordValue.length > 3)) {
+    if (!(passwordValue.length > 2)) {
         setErrorState((prevState: errorStateType) => ({
             ...prevState,
             password: { inValidMsg: "Invalid Password Format", state: true }
