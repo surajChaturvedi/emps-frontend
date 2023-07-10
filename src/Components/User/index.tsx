@@ -2,6 +2,10 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState, MouseEvent } from 'react';
+import { selectedDataType } from '../../Types';
+import { format } from 'date-fns';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
 
 export default function User() {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -14,7 +18,8 @@ export default function User() {
     const weeklyOpen = Boolean(weeklyAnchorEl);
     const [dateAnchorEl, setDateAnchorEl] = useState<null | HTMLElement>(null);
     const dateOpen = Boolean(dateAnchorEl);
-    const [startDate, setStartDate] = useState<string | Date>(new Date());
+    const [selectedData, setSelectedData] = useState<selectedDataType>({ week: undefined, month: undefined, date: { from: undefined, to: undefined } });
+    const [startDate, setStartDate] = useState<Date>();
     const [endDate, setEndDate] = useState<string | null>(null);
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -25,13 +30,16 @@ export default function User() {
     const monthHandleClick = (event: MouseEvent<HTMLButtonElement>) => {
         setMonthAnchorEl(event.currentTarget);
     }
-    const monthHandleClose = () => {
+    const monthHandleSelect = (index: number) => {
+        setSelectedData(prev => { return { ...prev, month: months[index] } })
+        setMonthAnchorEl(null);
         setMonthAnchorEl(null);
     }
     const weeklyHandleClick = (event: MouseEvent<HTMLButtonElement>) => {
         setWeeklyAnchorEl(event.currentTarget);
     }
-    const weeklyHandleClose = () => {
+    const weeklyHandleSelect = (index: number) => {
+        setSelectedData(prev => { return { ...prev, week: weeks[index] } })
         setWeeklyAnchorEl(null);
     }
     const dateHandleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -75,14 +83,14 @@ export default function User() {
                     <Menu
                         anchorEl={monthAnchorEl}
                         open={monthOpen}
-                        onClose={monthHandleClose}
+                        onClose={monthHandleSelect}
                         MenuListProps={{
                             'aria-labelledby': 'basic-button',
                         }}
                     >
                         {
-                            months.map(month => (
-                                <MenuItem onClick={monthHandleClose}>{month}</MenuItem>
+                            months.map((month, index) => (
+                                <MenuItem key={month} onClick={() => monthHandleSelect(index)}>{month}</MenuItem>
                             ))
                         }
                     </Menu>
@@ -93,14 +101,14 @@ export default function User() {
                     <Menu
                         anchorEl={weeklyAnchorEl}
                         open={weeklyOpen}
-                        onClose={weeklyHandleClose}
+                        onClose={weeklyHandleSelect}
                         MenuListProps={{
                             'aria-labelledby': 'basic-button',
                         }}
                     >
                         {
-                            weeks.map(week => (
-                                <MenuItem onClick={weeklyHandleClose}>{week}</MenuItem>
+                            weeks.map((week, index) => (
+                                <MenuItem key={week} onClick={() => weeklyHandleSelect(index)}>{week}</MenuItem>
                             ))
                         }
                     </Menu>
@@ -116,11 +124,14 @@ export default function User() {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <input title='from' type='date' />
-                        <input title='to' type='date' />
+                        <DayPicker
+                            mode="single"
+                            selected={startDate}
+                            onSelect={setStartDate}
+                        />
                     </Menu>
                     : <></>
             }
         </div>
     )
-}
+        }
