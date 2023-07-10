@@ -1,7 +1,8 @@
 import { Button } from "@mui/material"
+import User from "../User"
 export default function Admin() {
     return (
-        <div>
+        <div className="admin_block">
             <Button
                 variant="contained"
                 component="label"
@@ -12,7 +13,7 @@ export default function Admin() {
                     hidden multiple
                 />
             </Button>
-
+            <User />
         </div>
     )
 }

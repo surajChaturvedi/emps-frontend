@@ -7,8 +7,11 @@ import { format } from 'date-fns';
 import { DayPicker, DateRange, SelectRangeEventHandler } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { produce } from 'immer';
+import { useLocation } from 'react-router-dom';
 
 export default function User() {
+    const location = useLocation();
+    console.log(location.pathname)
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const weeks = ['1st', '2nd', '3rd', '4th', '5th'];
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -60,7 +63,7 @@ export default function User() {
 
 
     return (
-        <div>
+        <div className={location.pathname === '/user' ? 'user_block' : ''}>
             <Button
                 aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
@@ -68,7 +71,7 @@ export default function User() {
                 onClick={handleClick}
                 variant='outlined'
             >
-                Show Employee Details
+                Show {location.pathname === '/user' ? "" : "Employee"} Details
             </Button>
             <Menu
                 anchorEl={anchorEl}

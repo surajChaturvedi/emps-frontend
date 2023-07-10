@@ -1,4 +1,6 @@
 @Import url("src/assets/scss/Components/login.scss");
+@Import url("src/assets/scss/Components/admin.scss");
+@Import url("src/assets/scss/Components/user.scss");
 
 html,
 body,

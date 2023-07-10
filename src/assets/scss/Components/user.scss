@@ -1,0 +1,7 @@
+@import url("src/assets/scss/variables.scss");
+
+.user_block {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--top_space);
+}
