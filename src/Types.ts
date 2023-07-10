@@ -13,8 +13,8 @@ export type loginStateTypes = {
     passwordValue: string,
     setPasswordValue: React.Dispatch<React.SetStateAction<string>>
 }
-export type selectedDataType = { 
-    week: undefined|string, 
-    month: undefined|string, 
-    date: { from: undefined|string, to: undefined|string } 
+export type selectedDataType = {
+    week: undefined | string,
+    month: undefined | string,
+    date: { from: string, to: string }
 }
