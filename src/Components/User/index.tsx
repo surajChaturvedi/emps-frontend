@@ -8,6 +8,7 @@ import { DayPicker, DateRange, SelectRangeEventHandler } from 'react-day-picker'
 import 'react-day-picker/dist/style.css';
 import { produce } from 'immer';
 import { useLocation } from 'react-router-dom';
+import Logout from '../Logout';
 
 export default function User() {
     const location = useLocation();
@@ -138,6 +139,7 @@ export default function User() {
                     </Menu>
                     : <></>
             }
+            <Logout />
         </div>
     )
 }

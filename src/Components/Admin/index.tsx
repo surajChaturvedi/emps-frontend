@@ -1,5 +1,6 @@
 import { Button } from "@mui/material"
 import User from "../User"
+import Logout from "../Logout"
 export default function Admin() {
     return (
         <div className="admin_block">
@@ -14,6 +15,7 @@ export default function Admin() {
                 />
             </Button>
             <User />
+            <Logout />
         </div>
     )
 }
