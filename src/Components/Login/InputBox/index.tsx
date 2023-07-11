@@ -1,8 +1,7 @@
 import { TextField } from "@mui/material"
 import { useState, useEffect } from 'react'
-import { errorStateType } from "../../Types";
-import { emailValidate, checkEmailRequired, checkPasswordRequired, passwordValidate } from "../../Functions";
-import { loginStateTypes } from "../../Types";
+import { errorStateType, loginStateTypes } from "../../../Types";
+import { emailValidate, checkEmailRequired, checkPasswordRequired, passwordValidate } from "../../../Functions";
 export default function InputBox({ loginState }: { loginState: loginStateTypes }) {
     const [errorState, setErrorState] = useState<errorStateType>({
         email: { state: false, inValidMsg: "Invalid Email Format" },

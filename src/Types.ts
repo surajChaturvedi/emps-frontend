@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 export type errorStateType = {
     email: errorStateObjType,
     password: errorStateObjType
@@ -17,4 +18,8 @@ export type selectedDataType = {
     week: undefined | string,
     month: undefined | string,
     date: { from: string, to: string }
+}
+
+export type childrenType = {
+    children: ReactElement
 }
