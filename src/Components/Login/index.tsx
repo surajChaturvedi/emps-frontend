@@ -12,7 +12,7 @@ export default function Login() {
     const navigate = useNavigate();
     async function sendLoginData(e: Event | undefined) {
         if (e) e.preventDefault();
-        const response = await fetch('https://76fb-14-97-233-14.in.ngrok.io/user/login', {
+        const response = await fetch('https://c56e-14-97-233-14.ngrok.io/user/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -29,11 +29,11 @@ export default function Login() {
             Cookies.set('path', data.path, { expires: new Date(Date.now() + 31536000000) })
             navigate(`/${data.path.toLowerCase()}`);
         }
-        else if (response.status === 401) {
+        else if (response.status === 400) {
             setShowWrgCred(true);
             setTimeout(() => {
                 setShowWrgCred(false);
-            }, 10);
+            }, 3000);
         }
         else {
             // Handle errors

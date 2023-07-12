@@ -139,7 +139,7 @@ export default function User() {
                     </Menu>
                     : <></>
             }
-            <Logout />
+            {location.pathname === '/user' ? <Logout /> : <></>}
         </div>
     )
 }
