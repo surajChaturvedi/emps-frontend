@@ -1,16 +1,17 @@
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useState, MouseEvent } from 'react';
-import { selectedDataType } from '../../Types';
+import { useState, MouseEvent, useContext, useEffect } from 'react';
 import { format } from 'date-fns';
 import { DayPicker, DateRange, SelectRangeEventHandler } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { produce } from 'immer';
 import { useLocation } from 'react-router-dom';
 import Logout from '../Logout';
+import { AppContext } from '../../App';
 
 export default function User() {
+    const appContext = useContext(AppContext);
     const location = useLocation();
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const weeks = ['1st', '2nd', '3rd', '4th', '5th'];
@@ -22,7 +23,6 @@ export default function User() {
     const weeklyOpen = Boolean(weeklyAnchorEl);
     const [dateAnchorEl, setDateAnchorEl] = useState<null | HTMLElement>(null);
     const dateOpen = Boolean(dateAnchorEl);
-    const [selectedData, setSelectedData] = useState<selectedDataType>({ week: undefined, month: undefined, date: { from: '', to: '' } });
     const [selectedRange, setSelectedRange] = useState<DateRange>();
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -34,7 +34,7 @@ export default function User() {
         setMonthAnchorEl(event.currentTarget);
     }
     const monthHandleSelect = (index: number) => {
-        setSelectedData(produce((draft) => { draft.month = months[index] }))
+        appContext?.setAppData(produce((draft) => { draft.selectedData.month = months[index] }))
         setMonthAnchorEl(null);
         setMonthAnchorEl(null);
     }
@@ -42,7 +42,7 @@ export default function User() {
         setWeeklyAnchorEl(event.currentTarget);
     }
     const weeklyHandleSelect = (index: number) => {
-        setSelectedData(produce((draft) => { draft.week = weeks[index] }))
+        appContext?.setAppData(produce((draft) => { draft.selectedData.week = weeks[index] }))
         setWeeklyAnchorEl(null);
     }
     const dateHandleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -55,12 +55,16 @@ export default function User() {
         range: DateRange | undefined
     ) => {
         setSelectedRange(range);
-        if (range?.from) setSelectedData(produce((draft) => { draft.date.from = format(range.from as Date, 'y-MM-dd') }))
-        else setSelectedData(produce((draft) => { draft.date.from = '' }))
-        if (range?.to) setSelectedData(produce((draft) => { draft.date.to = format(range.to as Date, 'y-MM-dd') }))
-        else setSelectedData(produce((draft) => { draft.date.to = '' }))
+        if (range?.from) appContext?.setAppData(produce((draft) => { draft.selectedData.date.from = format(range.from as Date, 'dd-MM-y') }))
+        else appContext?.setAppData(produce((draft) => { draft.selectedData.date.from = '' }))
+        if (range?.to) appContext?.setAppData(produce((draft) => { draft.selectedData.date.to = format(range.to as Date, 'dd-MM-y') }))
+        else appContext?.setAppData(produce((draft) => { draft.selectedData.date.to = '' }))
     };
 
+    useEffect(() => {
+        if (!appContext?.appData.selectedData.date.from && !appContext?.appData.selectedData.date.to)
+            setSelectedRange({ from: undefined, to: undefined })
+    }, [appContext])
 
     return (
         <div className={location.pathname === '/user' ? 'user_block' : ''}>

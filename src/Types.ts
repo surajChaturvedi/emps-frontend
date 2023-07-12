@@ -15,11 +15,18 @@ export type loginStateTypes = {
     setPasswordValue: React.Dispatch<React.SetStateAction<string>>
 }
 export type selectedDataType = {
-    week: undefined | string,
-    month: undefined | string,
+    week: string,
+    month: string,
     date: { from: string, to: string }
 }
 
 export type childrenType = {
     children: ReactElement
+}
+
+export type appDataType = {
+    appData: { selectedData: selectedDataType },
+    setAppData: React.Dispatch<React.SetStateAction<{
+        selectedData: selectedDataType
+    }>>
 }

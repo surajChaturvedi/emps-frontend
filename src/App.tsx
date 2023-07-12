@@ -4,7 +4,15 @@ import Admin from './Components/Admin';
 import User from './Components/User';
 import AllowLogin from './Components/AllowLogin';
 import RedirectLogin from './Components/AllowLogin/RedirectLogin';
+import { createContext, useState } from 'react'
+import { appDataType } from './Types';
+export const AppContext = createContext<appDataType|null>(null);
 function App() {
+  const [appData, setAppData] = useState({
+    selectedData: {
+      week: '', month: '', date: { from: '', to: '' }
+    }
+  })
   const router = createBrowserRouter([
     {
       path: "/",
@@ -21,9 +29,11 @@ function App() {
   ]);
 
   return (
-    <RouterProvider
-      router={router}
-    />
+    <AppContext.Provider value={{ appData, setAppData }} >
+      <RouterProvider
+        router={router}
+      />
+    </AppContext.Provider>
   )
 }
 

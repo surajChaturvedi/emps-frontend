@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import { environment } from "../../environment";
 export default function Login() {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
@@ -12,7 +13,7 @@ export default function Login() {
     const navigate = useNavigate();
     async function sendLoginData(e: Event | undefined) {
         if (e) e.preventDefault();
-        const response = await fetch('https://c56e-14-97-233-14.ngrok.io/user/login', {
+        const response = await fetch(`${environment.url}/user/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
