@@ -17,26 +17,26 @@ export default function Date_Details() {
         <>
             {
                 appContext?.appData.selectedData.date.from ?
-                    <div>
-                        <Chip sx={{ marginRight: 1, marginLeft: 4, marginTop: 2 }} label={`From: ${appContext?.appData.selectedData.date.from}`} variant="outlined" />
-                        <Chip sx={{ marginRight: 1, marginTop: 2 }} label={`To: ${appContext?.appData.selectedData.date.to}`} variant="outlined" />
-                        <Chip sx={{ marginRight: 1, marginTop: 2 }} label="Date" variant="outlined" onDelete={emptySelectedDate} />
+                    <div className='filter_block'>
+                        <Chip sx={{ marginRight: 1, marginLeft: 4 }} label={`From: ${appContext?.appData.selectedData.date.from}`} variant="outlined" />
+                        <Chip sx={{ marginRight: 1 }} label={`To: ${appContext?.appData.selectedData.date.to}`} variant="outlined" />
+                        <Chip sx={{ marginRight: 1 }} label="Date" variant="outlined" onDelete={emptySelectedDate} />
                     </div>
                     : <></>
             }
             {
                 appContext?.appData.selectedData.month ?
-                    <div>
-                        <Chip sx={{ marginRight: 1, marginLeft: 4, marginTop: 2 }} label={`Month: ${appContext?.appData.selectedData.month}`} variant="outlined" />
-                        <Chip sx={{ marginRight: 1, marginTop: 2 }} label="Month" variant="outlined" onDelete={emptyMonth} />
+                    <div className='filter_block'>
+                        <Chip sx={{ marginRight: 1, marginLeft: 4 }} label={`Month: ${appContext?.appData.selectedData.month}`} variant="outlined" />
+                        <Chip sx={{ marginRight: 1 }} label="Month" variant="outlined" onDelete={emptyMonth} />
                     </div>
                     : <></>
             }
             {
                 appContext?.appData.selectedData.week ?
-                    <div>
-                        <Chip sx={{ marginRight: 1, marginLeft: 4, marginTop: 2 }} label={`Week: ${appContext?.appData.selectedData.week}`} variant="outlined" />
-                        <Chip sx={{ marginRight: 1, marginTop: 2 }} label="Week" variant="outlined" onDelete={emptyWeek} />
+                    <div className='filter_block'>
+                        <Chip sx={{ marginRight: 1, marginLeft: 4 }} label={`Week: ${appContext?.appData.selectedData.week}`} variant="outlined" />
+                        <Chip sx={{ marginRight: 1 }} label="Week" variant="outlined" onDelete={emptyWeek} />
                     </div>
                     : <></>
             }
