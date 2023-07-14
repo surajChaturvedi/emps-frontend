@@ -35,7 +35,8 @@ export default function User() {
     }
     const monthHandleSelect = (index: number) => {
         appContext?.setAppData(produce((draft) => { draft.selectedData.month = months[index] }))
-        setMonthAnchorEl(null);
+        appContext?.setAppData(produce((draft) => { draft.selectedData.week = '' }))
+        appContext?.setAppData(produce((draft) => { draft.selectedData.date.from = ''; draft.selectedData.date.to = '' }))
         setMonthAnchorEl(null);
     }
     const weeklyHandleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -43,6 +44,8 @@ export default function User() {
     }
     const weeklyHandleSelect = (index: number) => {
         appContext?.setAppData(produce((draft) => { draft.selectedData.week = weeks[index] }))
+        appContext?.setAppData(produce((draft) => { draft.selectedData.month = '' }))
+        appContext?.setAppData(produce((draft) => { draft.selectedData.date.from = ''; draft.selectedData.date.to = '' }))
         setWeeklyAnchorEl(null);
     }
     const dateHandleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -56,15 +59,15 @@ export default function User() {
     ) => {
         setSelectedRange(range);
         if (range?.from) appContext?.setAppData(produce((draft) => { draft.selectedData.date.from = format(range.from as Date, 'dd-MM-y') }))
-        else appContext?.setAppData(produce((draft) => { draft.selectedData.date.from = '' }))
         if (range?.to) appContext?.setAppData(produce((draft) => { draft.selectedData.date.to = format(range.to as Date, 'dd-MM-y') }))
-        else appContext?.setAppData(produce((draft) => { draft.selectedData.date.to = '' }))
+        appContext?.setAppData(produce((draft) => { draft.selectedData.month = '' }))
+        appContext?.setAppData(produce((draft) => { draft.selectedData.week = '' }))
     };
 
     useEffect(() => {
         if (!appContext?.appData.selectedData.date.from && !appContext?.appData.selectedData.date.to)
             setSelectedRange({ from: undefined, to: undefined })
-    }, [appContext])
+    }, [appContext?.appData.selectedData.date])
 
     return (
         <div className={location.pathname === '/user' ? 'user_block' : ''}>
