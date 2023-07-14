@@ -16,8 +16,6 @@ export default function User() {
     const location = useLocation();
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const weeks = ['1st', '2nd', '3rd', '4th', '5th'];
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
     const [monthAnchorEl, setMonthAnchorEl] = useState<null | HTMLElement>(null);
     const monthOpen = Boolean(monthAnchorEl);
     const [weeklyAnchorEl, setWeeklyAnchorEl] = useState<null | HTMLElement>(null);
@@ -25,12 +23,6 @@ export default function User() {
     const [dateAnchorEl, setDateAnchorEl] = useState<null | HTMLElement>(null);
     const dateOpen = Boolean(dateAnchorEl);
     const [selectedRange, setSelectedRange] = useState<DateRange>();
-    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
     const monthHandleClick = (event: MouseEvent<HTMLButtonElement>) => {
         setMonthAnchorEl(event.currentTarget);
     }
@@ -73,81 +65,53 @@ export default function User() {
     return (
         <>
             <div className={location.pathname === '/user' ? 'user_block' : ''}>
-                <Button
-                    aria-controls={open ? 'basic-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}
-                    variant='outlined'
-                >
-                    Show {location.pathname === '/user' ? "" : "Employee"} Details
-                </Button>
+                <div>
+                    <Button variant='outlined' sx={{ marginRight: 1 }} onClick={monthHandleClick}>Month</Button>
+                    <Button variant='outlined' sx={{ marginRight: 1 }} onClick={weeklyHandleClick}>Weekly</Button>
+                    <Button variant='outlined' sx={{ marginRight: 1 }} onClick={dateHandleClick}>Date Picker</Button>
+                </div>
                 <Menu
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
+                    anchorEl={monthAnchorEl}
+                    open={monthOpen}
+                    onClose={monthHandleSelect}
                     MenuListProps={{
                         'aria-labelledby': 'basic-button',
                     }}
                 >
-                    <Button onClick={monthHandleClick}>Month</Button>
-                    <Button onClick={weeklyHandleClick}>Weekly</Button>
-                    <Button onClick={dateHandleClick}>Date Picker</Button>
+                    {
+                        months.map((month, index) => (
+                            <MenuItem key={month} onClick={() => monthHandleSelect(index)}>{month}</MenuItem>
+                        ))
+                    }
                 </Menu>
-                {
-                    open ?
-                        <Menu
-                            anchorEl={monthAnchorEl}
-                            open={monthOpen}
-                            onClose={monthHandleSelect}
-                            MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                            }}
-                        >
-                            {
-                                months.map((month, index) => (
-                                    <MenuItem key={month} onClick={() => monthHandleSelect(index)}>{month}</MenuItem>
-                                ))
-                            }
-                        </Menu>
-                        : <></>
-                }
-                {
-                    open ?
-                        <Menu
-                            anchorEl={weeklyAnchorEl}
-                            open={weeklyOpen}
-                            onClose={weeklyHandleSelect}
-                            MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                            }}
-                        >
-                            {
-                                weeks.map((week, index) => (
-                                    <MenuItem key={week} onClick={() => weeklyHandleSelect(index)}>{week}</MenuItem>
-                                ))
-                            }
-                        </Menu>
-                        : <></>
-                }
-                {
-                    open ?
-                        <Menu
-                            anchorEl={dateAnchorEl}
-                            open={dateOpen}
-                            onClose={dateHandleClose}
-                            MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                            }}
-                        >
-                            <DayPicker
-                                mode="range"
-                                selected={selectedRange}
-                                onSelect={handleRangeSelect}
-                            />
-                        </Menu>
-                        : <></>
-                }
+                <Menu
+                    anchorEl={weeklyAnchorEl}
+                    open={weeklyOpen}
+                    onClose={weeklyHandleSelect}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    {
+                        weeks.map((week, index) => (
+                            <MenuItem key={week} onClick={() => weeklyHandleSelect(index)}>{week}</MenuItem>
+                        ))
+                    }
+                </Menu>
+                <Menu
+                    anchorEl={dateAnchorEl}
+                    open={dateOpen}
+                    onClose={dateHandleClose}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <DayPicker
+                        mode="range"
+                        selected={selectedRange}
+                        onSelect={handleRangeSelect}
+                    />
+                </Menu>
                 {location.pathname === '/user' ? <Logout /> : <></>}
             </div>
             {location.pathname === '/user' ? <Date_Details /> : <></>}

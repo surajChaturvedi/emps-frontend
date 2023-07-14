@@ -6,7 +6,7 @@ import AllowLogin from './Components/AllowLogin';
 import RedirectLogin from './Components/AllowLogin/RedirectLogin';
 import { createContext, useState } from 'react'
 import { appDataType } from './Types';
-export const AppContext = createContext<appDataType|null>(null);
+export const AppContext = createContext<appDataType | null>(null);
 function App() {
   const [appData, setAppData] = useState({
     selectedData: {
@@ -20,11 +20,11 @@ function App() {
     },
     {
       path: "/admin",
-      element: <AllowLogin><Admin /></AllowLogin>
+      element: <AllowLogin name='Admin'><Admin /></AllowLogin>
     },
     {
       path: "/user",
-      element: <AllowLogin><User /></AllowLogin>
+      element: <AllowLogin name='User'><User /></AllowLogin>
     }
   ]);
 

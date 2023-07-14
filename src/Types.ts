@@ -21,7 +21,8 @@ export type selectedDataType = {
 }
 
 export type childrenType = {
-    children: ReactElement
+    children: ReactElement,
+    name?: string
 }
 
 export type appDataType = {
