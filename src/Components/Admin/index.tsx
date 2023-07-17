@@ -3,6 +3,7 @@ import User from "../User"
 import Logout from "../Logout"
 import { useState, useEffect } from "react";
 import Date_Details from "../User/Date_Details";
+import Display_Table from "../User/Display_Table";
 export default function Admin() {
     const [selectedFile, setSelectedFile] = useState<File>();
     const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +39,7 @@ export default function Admin() {
                 <Logout />
             </div>
             <Date_Details />
+            <Display_Table />
         </>
     )
 }

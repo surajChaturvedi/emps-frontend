@@ -9,3 +9,7 @@ body,
     width: 100%;
     margin: 0;
 }
+
+.tableBlock .MuiDataGrid-columnHeaderTitleContainer {
+    justify-content: center;
+}
