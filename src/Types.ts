@@ -24,10 +24,14 @@ export type childrenType = {
     children: ReactElement,
     name?: string
 }
+export type namesDataType = {
+    name: string
+}
 
 export type appDataType = {
-    appData: { selectedData: selectedDataType },
+    appData: { selectedData: selectedDataType, namesSearchData: namesDataType[] },
     setAppData: React.Dispatch<React.SetStateAction<{
-        selectedData: selectedDataType
+        selectedData: selectedDataType,
+        namesSearchData: namesDataType[]
     }>>
 }
