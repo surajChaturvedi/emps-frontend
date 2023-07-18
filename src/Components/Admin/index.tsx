@@ -26,7 +26,7 @@ export default function Admin() {
         }
     }, [selectedFile])
     useEffect(() => {
-        if (appContext?.appData.selectedData.week.length === 0 && appContext?.appData.selectedData.month.length === 0 && appContext?.appData.selectedData.date.from.length === 0 && appContext?.appData.selectedData.date.to.length === 0) {
+        if ((appContext?.appData.selectedData.week?.length === 0 || appContext?.appData.selectedData.week === undefined) && (appContext?.appData.selectedData.month?.length === 0 || appContext?.appData.selectedData.month === undefined) && (appContext?.appData.selectedData.date.from?.length === 0 || appContext?.appData.selectedData.date.from === undefined) && (appContext?.appData.selectedData.date.to?.length === 0 || appContext?.appData.selectedData.date.to === undefined)) {
             setShowLogout(true)
         }
         else {
