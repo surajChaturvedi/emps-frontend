@@ -27,11 +27,13 @@ export type childrenType = {
 export type namesDataType = {
     name: string
 }
+type AppContextType = {
+    selectedData: selectedDataType,
+    namesSearchData: namesDataType[],
+    fileUpload_Status: {done:boolean,status:boolean}
+}
 
 export type appDataType = {
-    appData: { selectedData: selectedDataType, namesSearchData: namesDataType[] },
-    setAppData: React.Dispatch<React.SetStateAction<{
-        selectedData: selectedDataType,
-        namesSearchData: namesDataType[]
-    }>>
+    appData: AppContextType,
+    setAppData: React.Dispatch<React.SetStateAction<AppContextType>>
 }

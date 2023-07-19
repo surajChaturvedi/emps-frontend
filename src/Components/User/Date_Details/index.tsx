@@ -1,5 +1,5 @@
-import Chip from '@mui/material/Chip';
-import { useContext } from 'react';
+import { Chip, Alert } from '@mui/material';
+import { useContext, useEffect } from 'react';
 import { AppContext } from '../../../App';
 import { produce } from 'immer';
 export default function Date_Details() {
@@ -13,8 +13,18 @@ export default function Date_Details() {
     function emptyWeek() {
         appContext?.setAppData(produce((draft) => { draft.selectedData.week = '' }))
     }
+    useEffect(() => {
+        if (appContext?.appData.fileUpload_Status.done) {
+            setTimeout(() => {
+                appContext?.setAppData(produce((draft) => { draft.fileUpload_Status = { done: false, status: draft.fileUpload_Status.status } }))
+            }, 3000)
+        }
+    }, [appContext?.appData.fileUpload_Status.done])
     return (
         <>
+            {
+                appContext?.appData.fileUpload_Status.done ? <ShowFileUpload_Feedback /> : <></>
+            }
             {
                 appContext?.appData.selectedData.date.from ?
                     <div className='filter_block'>
@@ -41,5 +51,18 @@ export default function Date_Details() {
                     : <></>
             }
         </>
+    )
+}
+
+function ShowFileUpload_Feedback() {
+    const appContext = useContext(AppContext);
+    return (
+        <div style={{ display: 'flex', width: '100%',margin:'2rem' }}>
+            {
+                appContext?.appData.fileUpload_Status.status ?
+                    <Alert severity="success" style={{ width: '50%' }}>File Uploaded</Alert>
+                    : <Alert severity="error" style={{ width: '50%' }}>File Upload Failed</Alert>
+            }
+        </div>
     )
 }

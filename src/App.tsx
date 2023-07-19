@@ -5,14 +5,15 @@ import User from './Components/User';
 import AllowLogin from './Components/AllowLogin';
 import RedirectLogin from './Components/AllowLogin/RedirectLogin';
 import { createContext, useState } from 'react'
-import { appDataType, namesDataType } from './Types';
+import { appDataType } from './Types';
 export const AppContext = createContext<appDataType | null>(null);
 function App() {
   const [appData, setAppData] = useState({
     selectedData: {
       week: '', month: '', date: { from: '', to: '' }
     },
-    namesSearchData: [{ name: '' }]
+    namesSearchData: [{ name: '' }],
+    fileUpload_Status: { done: false, status: false }
   })
   const router = createBrowserRouter([
     {

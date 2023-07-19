@@ -39,6 +39,4 @@ export default function Search_Box() {
         </div>
     )
 }
-const Names: namesDataType[] = [{ name: "Actor" },
-{ name: "Actor" }, { name: "Actor" }, { name: "Actor" }, { name: "Actor" }, { name: "Actor" }, { name: "Actor" }, { name: "Actor" }, { name: "Actor" }, { name: "Actor" }, { name: "Actor" },
-]
+const Names: namesDataType[] = [{ name: "Shubhansu Chauhan" }]
