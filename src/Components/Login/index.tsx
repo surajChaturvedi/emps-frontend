@@ -13,7 +13,7 @@ export default function Login() {
     const navigate = useNavigate();
     async function sendLoginData(e: Event | undefined) {
         if (e) e.preventDefault();
-        const response = await fetch(`${environment.url}/user/login`, {
+        const response = await fetch(`${environment.url}/Login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

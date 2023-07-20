@@ -13,6 +13,7 @@ function App() {
       week: '', month: '', date: { from: '', to: '' }
     },
     namesSearchData: [{ name: '' }],
+    getData:[{name:'',points:0}],
     fileUpload_Status: { done: false, status: false }
   })
   const router = createBrowserRouter([

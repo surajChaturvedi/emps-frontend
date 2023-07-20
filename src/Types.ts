@@ -24,13 +24,16 @@ export type childrenType = {
     children: ReactElement,
     name?: string
 }
-export type namesDataType = {
-    name: string
-}
 type AppContextType = {
     selectedData: selectedDataType,
-    namesSearchData: namesDataType[],
-    fileUpload_Status: {done:boolean,status:boolean}
+    namesSearchData: string,
+    getData: getDataType[],
+    fileUpload_Status: { done: boolean, status: boolean }
+}
+export type getDataType = {
+    name: string,
+    points: number,
+    id: number
 }
 
 export type appDataType = {

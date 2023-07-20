@@ -1,34 +1,35 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-
+import { AppContext } from '../../../App';
+import { useContext } from 'react';
 const columns: GridColDef[] = [
-    { field: 'Name', headerName: 'Name', width: 300, align: 'center' },
-    { field: 'Points', headerName: 'Points', width: 100, align: 'center' },
+    { field: 'name', headerName: 'Name', width: 300, align: 'center' },
+    { field: 'points', headerName: 'Points', width: 100, align: 'center' },
 ];
 
-const rows = [{ name: '', point: 0 }];
-
 export default function Display_Table() {
-    return (
-        <>
-            {
-                rows[0].name.length > 0 ?
-                    <section style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3rem' }}>
-                        <div style={{ height: 400, width: 'auto' }} className='tableBlock'>
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                initialState={{
-                                    pagination: {
-                                        paginationModel: { page: 0, pageSize: 5 },
-                                    },
-                                }}
-                                pageSizeOptions={[5, 10]}
-                                checkboxSelection
-                            />
-                        </div>
-                    </section>
-                    : <></>
-            }
-        </>
-    );
+    const appContext = useContext(AppContext);
+    if (appContext?.appData.getData) {
+        return (
+            <>
+                {
+                    appContext?.appData.getData[0].name.length > 0 ?
+                        <section style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3rem' }}>
+                            <div style={{ height: 400, width: 'auto' }} className='tableBlock'>
+                                <DataGrid
+                                    rows={appContext?.appData.getData}
+                                    columns={columns}
+                                    initialState={{
+                                        pagination: {
+                                            paginationModel: { page: 0, pageSize: 5 },
+                                        },
+                                    }}
+                                    pageSizeOptions={[5, 10]}
+                                />
+                            </div>
+                        </section>
+                        : <></>
+                }
+            </>
+        );
+    }
 }
