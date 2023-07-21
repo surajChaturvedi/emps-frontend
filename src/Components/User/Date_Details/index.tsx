@@ -14,16 +14,16 @@ export default function Date_Details() {
         appContext?.setAppData(produce((draft) => { draft.selectedData.week = '' }))
     }
     useEffect(() => {
-        if (appContext?.appData.fileUpload_Status.done) {
+        if (appContext?.appData.fileUpload_Data.done) {
             setTimeout(() => {
-                appContext?.setAppData(produce((draft) => { draft.fileUpload_Status = { done: false, status: draft.fileUpload_Status.status } }))
+                appContext?.setAppData(produce((draft) => { draft.fileUpload_Data = { ...draft.fileUpload_Data, done: false } }))
             }, 3000)
         }
-    }, [appContext?.appData.fileUpload_Status.done])
+    }, [appContext?.appData.fileUpload_Data.done])
     return (
         <>
             {
-                appContext?.appData.fileUpload_Status.done ? <ShowFileUpload_Feedback /> : <></>
+                appContext?.appData.fileUpload_Data.done ? <ShowFileUpload_Feedback /> : <></>
             }
             {
                 appContext?.appData.selectedData.date.from ?
@@ -57,9 +57,9 @@ export default function Date_Details() {
 function ShowFileUpload_Feedback() {
     const appContext = useContext(AppContext);
     return (
-        <div style={{ display: 'flex', width: '100%',margin:'2rem' }}>
+        <div style={{ display: 'flex', width: '100%', margin: '2rem' }}>
             {
-                appContext?.appData.fileUpload_Status.status ?
+                appContext?.appData.fileUpload_Data.status ?
                     <Alert severity="success" style={{ width: '50%' }}>File Uploaded</Alert>
                     : <Alert severity="error" style={{ width: '50%' }}>File Upload Failed</Alert>
             }

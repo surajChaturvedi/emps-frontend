@@ -8,39 +8,24 @@ import Search_Box from "./Search_Box";
 import { AppContext } from "../../App";
 import Submit from "../Submit";
 import { produce } from "immer";
+import SubmitFile from "./SubmitFile";
 export default function Admin() {
     const appContext = useContext(AppContext);
-    const [selectedFile, setSelectedFile] = useState<File>();
-    const [showLogout, setShowLogout] = useState(true);
+    const [showLogout, setShowLogout] = useState('logout');
     const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files) setSelectedFile(event.target.files[0]);
-    };
-    async function sendFile() {
-        if (selectedFile) {
-            const formData = new FormData();
-            formData.append('CSVFile', selectedFile);
-            try {
-                const response = await fetch('https://example.com/upload', {
-                    method: 'POST',
-                    body: formData,
-                })
-                if (response.ok) {
-                    appContext?.setAppData(produce((draft) => { draft.fileUpload_Status = { done: true, status: true } }))
-                }
-            } catch (error) {
-                appContext?.setAppData(produce((draft) => { draft.fileUpload_Status = { done: true, status: false } }))
-            }
+        if (event.target.files != null) {
+            appContext?.setAppData(produce((draft) => { draft.fileUpload_Data = { ...draft.fileUpload_Data, file: event.target.files![0] } }));
         }
-    }
-    useEffect(() => {
-        sendFile();
-    }, [selectedFile])
+    };
     useEffect(() => {
         if ((appContext?.appData.selectedData.week?.length === 0 || appContext?.appData.selectedData.week === undefined) && (appContext?.appData.selectedData.month?.length === 0 || appContext?.appData.selectedData.month === undefined) && (appContext?.appData.selectedData.date.from?.length === 0 || appContext?.appData.selectedData.date.from === undefined) && (appContext?.appData.selectedData.date.to?.length === 0 || appContext?.appData.selectedData.date.to === undefined)) {
-            setShowLogout(true)
+            setShowLogout('logout')
+        }
+        else if (appContext?.appData.fileUpload_Data.file && appContext?.appData.selectedData.date.from && appContext?.appData.selectedData.date.to) {
+            setShowLogout('submitFile')
         }
         else {
-            setShowLogout(false)
+            setShowLogout('submitData')
         }
     }, [appContext?.appData])
     return (
@@ -59,7 +44,9 @@ export default function Admin() {
                 </Button>
                 <Search_Box />
                 <User />
-                {showLogout ? <Logout /> : <Submit />}
+                {showLogout === 'logout' ? <Logout /> : <></>}
+                {showLogout === 'submitData' ? <Submit /> : <></>}
+                {showLogout === 'submitFile' ? <SubmitFile /> : <></>}
             </div>
             <Date_Details />
             <Display_Table />

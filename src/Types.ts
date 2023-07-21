@@ -28,14 +28,18 @@ type AppContextType = {
     selectedData: selectedDataType,
     namesSearchData: string,
     getData: getDataType[],
-    fileUpload_Status: { done: boolean, status: boolean }
+    fileUpload_Data: fileUpload_DataType
 }
 export type getDataType = {
     name: string,
     points: number,
     id: number
 }
-
+type fileUpload_DataType = {
+    file?: File,
+    done: boolean,
+    status: boolean
+}
 export type appDataType = {
     appData: AppContextType,
     setAppData: React.Dispatch<React.SetStateAction<AppContextType>>
