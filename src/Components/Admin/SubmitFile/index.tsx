@@ -8,17 +8,17 @@ export default function SubmitFile() {
     function submitFile() {
         if (appContext?.appData.fileUpload_State.file) {
             const formData = new FormData();
-            formData.append('CSVFile', appContext?.appData.fileUpload_State.file);
-            formData.append('from', appContext?.appData.selectedTime.date.from);
-            formData.append('to', appContext?.appData.selectedTime.date.to);
-            fetch(`${environment.url}`, {
+            formData.append('csvFile', appContext?.appData.fileUpload_State.file);
+            formData.append('startDate', appContext?.appData.selectedTime.date.from);
+            formData.append('endDate', appContext?.appData.selectedTime.date.to);
+            fetch(`${environment.url}/DataInsert`, {
                 method: 'POST',
                 body: formData,
             })
-                .then(response => {
+                .then(() => {
                     appContext?.setAppData(produce((draft) => { draft.fileUpload_State = { done: true, status: true } }))
                 })
-                .catch(error => {
+                .catch(() => {
                     appContext?.setAppData(produce((draft) => { draft.fileUpload_State = { done: true, status: false } }))
                 })
         }

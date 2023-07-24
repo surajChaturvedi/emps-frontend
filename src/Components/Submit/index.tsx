@@ -31,7 +31,7 @@ export default function Submit() {
                     draft.nameUpload_State = { done: true, status: true }
                 }))
             })
-            .catch(error => {
+            .catch(() => {
                 appContext?.setAppData(produce((draft) => {
                     draft.nameUpload_State = { done: true, status: false }
                 }))
