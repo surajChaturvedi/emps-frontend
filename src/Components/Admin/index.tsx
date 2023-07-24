@@ -14,17 +14,17 @@ export default function Admin() {
     const [showLogout, setShowLogout] = useState('logout');
     const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files != null) {
-            appContext?.setAppData(produce((draft) => { draft.fileUpload_Data = { ...draft.fileUpload_Data, file: event.target.files![0] } }));
+            appContext?.setAppData(produce((draft) => { draft.fileUpload_State = { ...draft.fileUpload_State, file: event.target.files![0] } }));
         }
     };
     useEffect(() => {
-        if ((appContext?.appData.selectedData.week?.length === 0 || appContext?.appData.selectedData.week === undefined) && (appContext?.appData.selectedData.month?.length === 0 || appContext?.appData.selectedData.month === undefined) && (appContext?.appData.selectedData.date.from?.length === 0 || appContext?.appData.selectedData.date.from === undefined) && (appContext?.appData.selectedData.date.to?.length === 0 || appContext?.appData.selectedData.date.to === undefined)) {
+        if ((appContext?.appData.selectedTime.week?.length === 0 || appContext?.appData.selectedTime.week === undefined) && (appContext?.appData.selectedTime.month?.length === 0 || appContext?.appData.selectedTime.month === undefined) && (appContext?.appData.selectedTime.date.from?.length === 0 || appContext?.appData.selectedTime.date.from === undefined) && (appContext?.appData.selectedTime.date.to?.length === 0 || appContext?.appData.selectedTime.date.to === undefined)) {
             setShowLogout('logout')
         }
-        else if (appContext?.appData.fileUpload_Data.file && appContext?.appData.selectedData.date.from && appContext?.appData.selectedData.date.to) {
+        else if (appContext?.appData.fileUpload_State.file && (appContext?.appData.selectedTime.date.from || appContext?.appData.selectedTime.date.to || appContext?.appData.selectedTime.month || appContext?.appData.selectedTime.week)) {
             setShowLogout('submitFile')
         }
-        else {
+        else if (appContext?.appData.namesSearchData && (appContext?.appData.selectedTime.date.from || appContext?.appData.selectedTime.date.to || appContext?.appData.selectedTime.month || appContext?.appData.selectedTime.week)) {
             setShowLogout('submitData')
         }
     }, [appContext?.appData])

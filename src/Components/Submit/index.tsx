@@ -13,8 +13,8 @@ export default function Submit() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                startDate: appContext?.appData.selectedData.date.from,
-                endDate: appContext?.appData.selectedData.date.to,
+                startDate: appContext?.appData.selectedTime.date.from,
+                endDate: appContext?.appData.selectedTime.date.to,
                 EmployeeName: appContext?.appData.namesSearchData
             })
         })
@@ -27,6 +27,14 @@ export default function Submit() {
                     })
                 }))
                 count = 0;
+                appContext?.setAppData(produce((draft) => {
+                    draft.nameUpload_State = { done: true, status: true }
+                }))
+            })
+            .catch(error => {
+                appContext?.setAppData(produce((draft) => {
+                    draft.nameUpload_State = { done: true, status: false }
+                }))
             })
     }
     return (

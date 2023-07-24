@@ -9,12 +9,13 @@ import { appDataType } from './Types';
 export const AppContext = createContext<appDataType | null>(null);
 function App() {
   const [appData, setAppData] = useState({
-    selectedData: {
+    selectedTime: {
       week: '', month: '', date: { from: '', to: '' }
     },
     namesSearchData: '',
     getData: [{ id: 0, name: '', points: 0 }],
-    fileUpload_Data: { done: false, status: false }
+    fileUpload_State: { done: false, status: false },
+    nameUpload_State: { done: false, status: false }
   })
   const router = createBrowserRouter([
     {

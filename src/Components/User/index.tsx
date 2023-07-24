@@ -27,18 +27,18 @@ export default function User() {
         setMonthAnchorEl(event.currentTarget);
     }
     const monthHandleSelect = (index: number) => {
-        appContext?.setAppData(produce((draft) => { draft.selectedData.month = months[index] }))
-        appContext?.setAppData(produce((draft) => { draft.selectedData.week = '' }))
-        appContext?.setAppData(produce((draft) => { draft.selectedData.date.from = ''; draft.selectedData.date.to = '' }))
+        appContext?.setAppData(produce((draft) => { draft.selectedTime.month = months[index] }))
+        appContext?.setAppData(produce((draft) => { draft.selectedTime.week = '' }))
+        appContext?.setAppData(produce((draft) => { draft.selectedTime.date.from = ''; draft.selectedTime.date.to = '' }))
         setMonthAnchorEl(null);
     }
     const weeklyHandleClick = (event: MouseEvent<HTMLButtonElement>) => {
         setWeeklyAnchorEl(event.currentTarget);
     }
     const weeklyHandleSelect = (index: number) => {
-        appContext?.setAppData(produce((draft) => { draft.selectedData.week = weeks[index] }))
-        appContext?.setAppData(produce((draft) => { draft.selectedData.month = '' }))
-        appContext?.setAppData(produce((draft) => { draft.selectedData.date.from = ''; draft.selectedData.date.to = '' }))
+        appContext?.setAppData(produce((draft) => { draft.selectedTime.week = weeks[index] }))
+        appContext?.setAppData(produce((draft) => { draft.selectedTime.month = '' }))
+        appContext?.setAppData(produce((draft) => { draft.selectedTime.date.from = ''; draft.selectedTime.date.to = '' }))
         setWeeklyAnchorEl(null);
     }
     const dateHandleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -51,16 +51,16 @@ export default function User() {
         range: DateRange | undefined
     ) => {
         setSelectedRange(range);
-        if (range?.from) appContext?.setAppData(produce((draft) => { draft.selectedData.date.from = format(range.from as Date, 'dd-MM-y') }))
-        if (range?.to) appContext?.setAppData(produce((draft) => { draft.selectedData.date.to = format(range.to as Date, 'dd-MM-y') }))
-        appContext?.setAppData(produce((draft) => { draft.selectedData.month = '' }))
-        appContext?.setAppData(produce((draft) => { draft.selectedData.week = '' }))
+        if (range?.from) appContext?.setAppData(produce((draft) => { draft.selectedTime.date.from = format(range.from as Date, 'dd-MM-y') }))
+        if (range?.to) appContext?.setAppData(produce((draft) => { draft.selectedTime.date.to = format(range.to as Date, 'dd-MM-y') }))
+        appContext?.setAppData(produce((draft) => { draft.selectedTime.month = '' }))
+        appContext?.setAppData(produce((draft) => { draft.selectedTime.week = '' }))
     };
 
     useEffect(() => {
-        if (!appContext?.appData.selectedData.date.from && !appContext?.appData.selectedData.date.to)
+        if (!appContext?.appData.selectedTime.date.from && !appContext?.appData.selectedTime.date.to)
             setSelectedRange({ from: undefined, to: undefined })
-    }, [appContext?.appData.selectedData.date])
+    }, [appContext?.appData.selectedTime.date])
 
     return (
         <>
