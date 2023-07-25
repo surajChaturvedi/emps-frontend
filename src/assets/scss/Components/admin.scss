@@ -6,3 +6,20 @@
     padding-top: var(--top_space);
     align-items: center;
 }
+
+.animate {
+    animation-name: so;
+    animation-duration: 2s;
+}
+
+@keyframes so {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

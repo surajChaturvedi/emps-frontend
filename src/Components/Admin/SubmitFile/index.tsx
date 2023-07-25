@@ -16,10 +16,10 @@ export default function SubmitFile() {
                 body: formData,
             })
                 .then(() => {
-                    appContext?.setAppData(produce((draft) => { draft.fileUpload_State = { done: true, status: true } }))
+                    appContext?.setAppData(produce((draft) => { draft.fileUpload_State = { ...draft.fileUpload_State, done: true, status: true } }))
                 })
                 .catch(() => {
-                    appContext?.setAppData(produce((draft) => { draft.fileUpload_State = { done: true, status: false } }))
+                    appContext?.setAppData(produce((draft) => { draft.fileUpload_State = { ...draft.fileUpload_State, done: true, status: false } }))
                 })
         }
     }

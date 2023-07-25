@@ -24,11 +24,11 @@ function App() {
     },
     {
       path: "/admin",
-      element: <AllowLogin name='Admin'><Admin /></AllowLogin>
+      element: <AllowLogin name='admin'><Admin /></AllowLogin>
     },
     {
       path: "/user",
-      element: <AllowLogin name='User'><User /></AllowLogin>
+      element: <AllowLogin name='user'><User /></AllowLogin>
     }
   ]);
 

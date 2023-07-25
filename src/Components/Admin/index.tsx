@@ -31,22 +31,30 @@ export default function Admin() {
     return (
         <>
             <div className="admin_block">
-                <Button
-                    variant="contained"
-                    component="label"
-                >
-                    Upload CSV
-                    <input
-                        type="file"
-                        hidden
-                        name="file" onChange={changeHandler}
-                    />
-                </Button>
-                <Search_Box />
-                <User />
-                {showLogout === 'logout' ? <Logout /> : <></>}
-                {showLogout === 'submitData' ? <Submit /> : <></>}
-                {showLogout === 'submitFile' ? <SubmitFile /> : <></>}
+                <div className="animate">
+                    <Button
+                        variant="contained"
+                        component="label"
+                    >
+                        Upload CSV
+                        <input
+                            type="file"
+                            hidden
+                            name="file" onChange={changeHandler}
+                        />
+                    </Button>
+                </div>
+                <div className="animate">
+                    <Search_Box />
+                </div>
+                <div className="animate">
+                    <User />
+                </div>
+                <div className="animate">
+                    {showLogout === 'logout' ? <Logout /> : <></>}
+                    {showLogout === 'submitData' ? <Submit /> : <></>}
+                    {showLogout === 'submitFile' ? <SubmitFile /> : <></>}
+                </div>
             </div>
             <Date_Details />
             <Display_Table />
