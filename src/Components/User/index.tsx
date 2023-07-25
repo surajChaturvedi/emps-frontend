@@ -10,6 +10,8 @@ import { useLocation } from 'react-router-dom';
 import Logout from '../Logout';
 import { AppContext } from '../../App';
 import Date_Details from './Date_Details';
+import Submit from '../Submit';
+import Display_Table from './Display_Table';
 
 export default function User() {
     const appContext = useContext(AppContext);
@@ -23,6 +25,7 @@ export default function User() {
     const [dateAnchorEl, setDateAnchorEl] = useState<null | HTMLElement>(null);
     const dateOpen = Boolean(dateAnchorEl);
     const [selectedRange, setSelectedRange] = useState<DateRange>();
+    const [showLogout, setShowLogout] = useState('logout');
     const monthHandleClick = (event: MouseEvent<HTMLButtonElement>) => {
         setMonthAnchorEl(event.currentTarget);
     }
@@ -61,11 +64,19 @@ export default function User() {
         if (!appContext?.appData.selectedTime.date.from && !appContext?.appData.selectedTime.date.to)
             setSelectedRange({ from: undefined, to: undefined })
     }, [appContext?.appData.selectedTime.date])
+    useEffect(() => {
+        if ((appContext?.appData.selectedTime.week?.length === 0 || appContext?.appData.selectedTime.week === undefined) && (appContext?.appData.selectedTime.month?.length === 0 || appContext?.appData.selectedTime.month === undefined) && (appContext?.appData.selectedTime.date.from?.length === 0 || appContext?.appData.selectedTime.date.from === undefined) && (appContext?.appData.selectedTime.date.to?.length === 0 || appContext?.appData.selectedTime.date.to === undefined) && (appContext?.appData.fileUpload_State.file === undefined)) {
+            setShowLogout('logout')
+        }
+        else if (appContext?.appData.selectedTime.date.from || appContext?.appData.selectedTime.date.to || appContext?.appData.selectedTime.month || appContext?.appData.selectedTime.week) {
+            setShowLogout('submitData')
+        }
+    }, [appContext?.appData])
 
     return (
         <>
             <div className={location.pathname === '/user' ? 'user_block' : ''}>
-                <div>
+                <div className="animate">
                     <Button variant='outlined' sx={{ marginRight: 1 }} onClick={monthHandleClick}>Month</Button>
                     <Button variant='outlined' sx={{ marginRight: 1 }} onClick={weeklyHandleClick}>Weekly</Button>
                     <Button variant='outlined' sx={{ marginRight: 1 }} onClick={dateHandleClick}>Date Picker</Button>
@@ -112,9 +123,15 @@ export default function User() {
                         onSelect={handleRangeSelect}
                     />
                 </Menu>
-                {location.pathname === '/user' ? <Logout /> : <></>}
+                {location.pathname === '/user' ?
+                    <div className="animate">
+                        {showLogout === 'logout' ? <Logout /> : <></>}
+                        {showLogout === 'submitData' ? <Submit /> : <></>}
+                    </div>
+                    : <></>}
             </div>
             {location.pathname === '/user' ? <Date_Details /> : <></>}
+            {location.pathname === '/user' ? <Display_Table /> : <></>}
         </>
     )
 }
