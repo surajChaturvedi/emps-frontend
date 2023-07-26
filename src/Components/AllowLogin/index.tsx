@@ -9,7 +9,7 @@ export default function AllowLogin(props: childrenType) {
     useEffect(() => {
         const cookie = Cookies.get('token');
         const path = Cookies.get('path');
-        if (cookie && path === props.name) setRenderChild(true)
+        if (cookie && path?.toLowerCase() === props.name) setRenderChild(true)
         else navigate('/');
     }, [])
     return (

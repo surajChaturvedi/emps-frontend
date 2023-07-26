@@ -1,3 +1,3 @@
 export const environment = {
-    url: "https://4c34-14-97-233-14.ngrok.io/user"
+    url: "https://47e6-14-97-233-14.ngrok.io/user"
 }

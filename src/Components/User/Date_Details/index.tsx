@@ -74,7 +74,7 @@ export default function Date_Details() {
 
 function Show_Feedback(props: { status: boolean, name: string }) {
     return (
-        <div style={{ display: 'flex', width: '100%', margin: '2rem' }}>
+        <div style={{ display: 'flex', width: '100%', margin: '2rem', justifyContent: 'center' }}>
             {
                 props.status ?
                     <Alert severity="success" style={{ width: '50%' }}>{props.name} Uploaded</Alert>

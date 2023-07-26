@@ -54,8 +54,8 @@ export default function User() {
         range: DateRange | undefined
     ) => {
         setSelectedRange(range);
-        if (range?.from) appContext?.setAppData(produce((draft) => { draft.selectedTime.date.from = format(range.from as Date, 'dd-MM-y') }))
-        if (range?.to) appContext?.setAppData(produce((draft) => { draft.selectedTime.date.to = format(range.to as Date, 'dd-MM-y') }))
+        if (range?.from) appContext?.setAppData(produce((draft) => { draft.selectedTime.date.from = format(range.from as Date, 'y-MM-dd') }))
+        if (range?.to) appContext?.setAppData(produce((draft) => { draft.selectedTime.date.to = format(range.to as Date, 'y-MM-dd') }))
         appContext?.setAppData(produce((draft) => { draft.selectedTime.month = '' }))
         appContext?.setAppData(produce((draft) => { draft.selectedTime.week = '' }))
     };
