@@ -17,6 +17,9 @@ export default function Admin() {
             appContext?.setAppData(produce((draft) => { draft.fileUpload_State = { ...draft.fileUpload_State, file: event.target.files![0] } }));
         }
     };
+    function showEmployees() {
+        appContext?.setAppData(prev => { return { ...prev, allEmployees: { fetchNow: true, data: [] } } })
+    }
     useEffect(() => {
         if ((appContext?.appData.selectedTime.date.from?.length === 0 || appContext?.appData.selectedTime.date.from === undefined) && (appContext?.appData.selectedTime.date.to?.length === 0 || appContext?.appData.selectedTime.date.to === undefined) && (appContext?.appData.fileUpload_State.file === undefined)) {
             setShowLogout('logout')
@@ -49,6 +52,9 @@ export default function Admin() {
                 </div>
                 <div className="animate">
                     <User />
+                </div>
+                <div className="animate">
+                    <Button variant='contained' sx={{ marginRight: 10 }} onClick={showEmployees}>Show All Employees</Button>
                 </div>
                 <div className="animate">
                     {showLogout === 'logout' ? <Logout /> : <></>}

@@ -32,9 +32,6 @@ export default function User() {
         if (range?.from) appContext?.setAppData(produce((draft) => { draft.selectedTime.date.from = format(range.from as Date, 'y-MM-dd') }))
         if (range?.to) appContext?.setAppData(produce((draft) => { draft.selectedTime.date.to = format(range.to as Date, 'y-MM-dd') }))
     };
-    function showEmployees() {
-        appContext?.setAppData(prev=>{return {...prev,allEmployees:{fetchNow:true,data:[]}}})
-    }
 
     useEffect(() => {
         if (!appContext?.appData.selectedTime.date.from && !appContext?.appData.selectedTime.date.to)
@@ -52,8 +49,7 @@ export default function User() {
     return (
         <>
             <div className={location.pathname === '/user' ? 'user_block' : ''}>
-                <div className="animate">
-                    <Button variant='contained' sx={{ marginRight: 10 }} onClick={showEmployees}>Show All Employees</Button>
+                <div className="animate"> 
                     <Button variant='outlined' sx={{ marginRight: 1 }} onClick={dateHandleClick}>Date Picker</Button>
                 </div>
                 <Menu
