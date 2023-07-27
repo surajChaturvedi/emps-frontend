@@ -10,12 +10,11 @@ export const AppContext = createContext<appDataType | null>(null);
 function App() {
   const [appData, setAppData] = useState({
     selectedTime: {
-      week: '', month: '', date: { from: '', to: '' }
+      date: { from: '', to: '' }
     },
     namesSearchData: '',
-    getData: [{ id: 0, name: '', points: 0 }],
     fileUpload_State: { done: false, status: false },
-    nameUpload_State: { done: false, status: false }
+    nameUpload_State: { done: false, status: false },
   })
   const router = createBrowserRouter([
     {
