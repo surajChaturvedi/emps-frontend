@@ -46,7 +46,14 @@ function submitData(appContext: appDataType | null) {
     }
     else if (appContext?.appData.allEmployees?.fetchNow) {
         fetch(`${environment.url}/all`, {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                startDate: appContext?.appData.selectedTime.date.from,
+                endDate: appContext?.appData.selectedTime.date.to
+            })
         })
             .then(response => response.json())
             .then(data => {

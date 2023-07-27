@@ -24,7 +24,7 @@ export default function Admin() {
         else if (appContext?.appData.fileUpload_State.file) {
             setShowLogout('submitFile')
         }
-        else if (appContext?.appData.namesSearchData && (appContext?.appData.selectedTime.date.from || appContext?.appData.selectedTime.date.to)) {
+        else if ((appContext?.appData.namesSearchData || appContext?.appData.allEmployees?.fetchNow) && (appContext?.appData.selectedTime.date.from || appContext?.appData.selectedTime.date.to)) {
             setShowLogout('submitData')
         }
     }, [appContext?.appData])

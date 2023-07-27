@@ -10,20 +10,22 @@ const columns: GridColDef[] = [
 
 export default function Display_Table() {
     const appContext = useContext(AppContext);
-    const [tableData, setTableData] = useState<getDataType[] | undefined>([]);
-    useEffect(() => {
-        setTableData(appContext?.appData.getData)
-    }, [appContext?.appData.getData])
-    useEffect(() => {
-        setTableData(appContext?.appData.allEmployees?.data.map((el: allEmployeesDataType) => {
-            return { name: el.employee_name, points: el.points, id: el.id }
-        }))
-    }, [appContext?.appData.allEmployees?.data])
+    const [tableData, setTableData] = useState<readonly any[]>([{id: 0, name: "Rishabh Choudhary", points: 0},
+    {id: 1, name: "Sumer Singh Chauhan", points: 0}]);
+    // useEffect(() => {
+    //     setTableData(appContext?.appData.getData)
+    // }, [appContext?.appData.getData])
+    // useEffect(() => {
+    //     setTableData(appContext?.appData.allEmployees?.data.map((el: any) => {
+    //         console.log("el: ",el)
+    //         return { name: el.name, points: el.points, id: el.id }
+    //     }))
+    // }, [appContext?.appData.allEmployees?.data])
     if (appContext?.appData.getData) {
         return (
             <>
                 {
-                    tableData ?
+                    tableData?.length !== 0 ?
                         <section style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '3rem' }}>
                             <div style={{ height: 400, width: 'auto' }} className='tableBlock'>
                                 <DataGrid

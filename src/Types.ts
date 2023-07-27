@@ -42,7 +42,7 @@ export type appDataType = {
 export type getDataType = {
     name: string,
     points: number,
-    id: number | undefined
+    id?: number | undefined
 }
 type fileUpload_StateType = {
     file?: File,

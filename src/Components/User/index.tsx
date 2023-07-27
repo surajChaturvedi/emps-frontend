@@ -33,9 +33,7 @@ export default function User() {
         if (range?.to) appContext?.setAppData(produce((draft) => { draft.selectedTime.date.to = format(range.to as Date, 'y-MM-dd') }))
     };
     function showEmployees() {
-        appContext?.setAppData(produce((draft) => {
-            if (draft.allEmployees) draft.allEmployees = { ...draft.allEmployees, fetchNow: true }
-        }))
+        appContext?.setAppData(prev=>{return {...prev,allEmployees:{fetchNow:true,data:[]}}})
     }
 
     useEffect(() => {
