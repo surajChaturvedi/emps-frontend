@@ -18,13 +18,13 @@ export default function Admin() {
         }
     };
     useEffect(() => {
-        if ((appContext?.appData.selectedTime.week?.length === 0 || appContext?.appData.selectedTime.week === undefined) && (appContext?.appData.selectedTime.month?.length === 0 || appContext?.appData.selectedTime.month === undefined) && (appContext?.appData.selectedTime.date.from?.length === 0 || appContext?.appData.selectedTime.date.from === undefined) && (appContext?.appData.selectedTime.date.to?.length === 0 || appContext?.appData.selectedTime.date.to === undefined) && (appContext?.appData.fileUpload_State.file === undefined)) {
+        if ((appContext?.appData.selectedTime.date.from?.length === 0 || appContext?.appData.selectedTime.date.from === undefined) && (appContext?.appData.selectedTime.date.to?.length === 0 || appContext?.appData.selectedTime.date.to === undefined) && (appContext?.appData.fileUpload_State.file === undefined)) {
             setShowLogout('logout')
         }
         else if (appContext?.appData.fileUpload_State.file) {
             setShowLogout('submitFile')
         }
-        else if (appContext?.appData.namesSearchData && (appContext?.appData.selectedTime.date.from || appContext?.appData.selectedTime.date.to || appContext?.appData.selectedTime.month || appContext?.appData.selectedTime.week)) {
+        else if (appContext?.appData.namesSearchData && (appContext?.appData.selectedTime.date.from || appContext?.appData.selectedTime.date.to)) {
             setShowLogout('submitData')
         }
     }, [appContext?.appData])
